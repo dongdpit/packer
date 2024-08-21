@@ -9,3 +9,12 @@ autoinstall:
     allow-pw: true
   packages:
     - open-vm-tools
+  user-data:
+    disable_root: false
+  late-commands:
+    - sed -i -e 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+    - sed -i -e 's/^#\?PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config
+    - export http_proxy=http://10.26.2.55:8080/
+    - export https_proxy=http://10.26.2.55:8080/
+    - timedatectl set-timezone Asia/Ho_Chi_Minh
+    - sed -i -e 's/^#\?NTP.*/NTP=10.26.248.16/g' /etc/systemd/timesyncd.conf
