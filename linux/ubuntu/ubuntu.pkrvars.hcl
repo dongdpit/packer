@@ -1,6 +1,6 @@
-vsphere_server = "10.26.7.52"
-vsphere_user = "dongdp@vsphere.local"
-vsphere_password = "donggi@N9"
+vsphere_server = ""
+vsphere_user = ""
+vsphere_password = ""
 
 datacenter = "DatacenterDEV"
 cluster = "Vm-Cluster-Blade"
