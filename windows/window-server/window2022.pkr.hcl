@@ -1,12 +1,14 @@
+###https://developer.hashicorp.com/packer/integrations/hashicorp/vsphere/latest/components/builder/vsphere-iso
+
 packer {
 #  required_version = ">=1.7.5"
   required_plugins {
     vsphere = {
-      version = ">= 1.2.3"
+      version = ">= 2.0.0"
       source  = "github.com/hashicorp/vsphere"
     }
     # if you would like to automatically install window updates, then uncomment
-    # the following section. Please also uncomment Line 163-170
+    # the following section. Please also uncomment Line 97-104
 
     # windows-update = {
     #   version = "0.14.0"
@@ -25,53 +27,62 @@ source "vsphere-iso" "this" {
 
 ### Location Configuration
   vm_name       = "Win2022_Temp21082024"
-#  folder        = ""
+#  folder        = 
   cluster       = var.cluster
-#  host          = var.host
-#  resource_pool = var.resource_pool
+#  host          = 
+#  resource_pool = 
   datastore     = var.datastore
+#  convert_to_template = "true"
 
 ### Hardware Configuration
   CPUs                  = 4
+#  cpu_cores             = 2
+#  CPU_limit             = "10000"
   RAM                   = 4096
   RAM_reserve_all       = true
-  firmware              = "efi-secure"
-  disk_controller_type  = ["pvscsi"]
+#  firmware              = "efi-secure", "efi", "bios"
 
 ### Create Configuration
+#https://knowledge.broadcom.com/external/article?articleNumber=315655
+  vm_version    = 
+#https://knowledge.broadcom.com/external/article/321876/determine-the-guest-os-from-a-vm-configu.html
   guest_os_type = "windows2019srvNext_64Guest"
+
+### ISO Configuration
+  iso_checksum          = "4f1457c4fe14ce48c9b2324924f33ca4f0470475e6da851b39ccbf98f44e7852"
+  iso_url               = "https://software-download.microsoft.com/download/sg/20348.169.210806-2348.fe_release_svc_refresh_SERVER_EVAL_x64FRE_en-us.iso"
+  iso_paths             = "[vCenterHA-dbs] vmtools/windows.iso"
+
+### Floppy Configuration
+  floppy_img_path       = "[vCenterHA-dbs] floppies/pvscsi-Windows8.flp"
+  floppy_files          = ["./data/autounattend.xml", "../scripts/setup.ps1", "../scripts/vmtools.cmd", "../scripts/appx.ps1"]
+
+### Network Adapter Configuration
   network_adapters {
     network      = var.network_name
     network_card = "vmxnet3"
   }
 
-  floppy_files          = ["${var.autounattend_file}", "setup/setup.ps1", "setup/vmtools.cmd", "setup/appx.ps1"]
-  floppy_img_path       = "${var.floppy_pvscsi}"
-
-### CD-ROM Configuration
-  iso_checksum          = "${var.os_iso_checksum}"
-  iso_url               = "${var.os_iso_url}"
-  iso_paths             = ["${var.vmtools_iso_path}"]
-
 ### Storage Configuration
+#lsilogic-sas, pvscsi, nvme, scsi, sata
+  disk_controller_type  = ["pvscsi"]
   storage {
     disk_size             = 40960
     disk_thin_provisioned = true
   }
 
-### Boot Configuration
-#  boot_command = ["<spacebar>"]
+### Wait Configuration
+  ip_wait_timeout       = "3h"
+  ip_settle_timeout     = "2m"
 
-### WinRM
+### Communicator Configuration
   communicator   = "winrm"
   winrm_username = var.winrm_username
   winrm_password = var.winrm_password
   winrm_timeout  = "3h"
 
+### Shutdown Configuration
   shutdown_timeout      = "60m"
-
-  ip_wait_timeout       = "3h"
-  ip_settle_timeout     = "2m"
 
 }
 
@@ -81,7 +92,7 @@ build {
   ]
 
   # if you would like to automatically install window updates, then uncomment
-  # the following section. Please also uncomment Line 11-14
+  # the following section. Please also uncomment Line 13-16
 
   # provisioner "windows-update" {
   #   search_criteria = "IsInstalled=0"
