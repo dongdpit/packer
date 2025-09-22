@@ -55,7 +55,7 @@ source "vsphere-iso" "this" {
 
 ### Floppy Configuration
   floppy_img_path       = "[vCenterHA-dbs] floppies/pvscsi-Windows8.flp"
-  floppy_files          = ["./data/autounattend.xml", "../scripts/setup.ps1", "../scripts/vmtools.cmd", "../scripts/appx.ps1"]
+  floppy_files          = ["./data/autounattend.xml", "../setup/setup.ps1", "../setup/vmtools.cmd", "../setup/appx.ps1"]
 
 ### Network Adapter Configuration
   network_adapters {
