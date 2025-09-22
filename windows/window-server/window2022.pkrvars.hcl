@@ -9,7 +9,11 @@ datastore = "ESXiTest131_dbs"
 
 network_name = "VM Network"
 
-build_username = "window"
-build_password = "window"
+vmtools_iso_path        = "[vCenterHA-dbs] vmtools/windows.iso"
+floppy_pvscsi           = "[vCenterHA-dbs] floppies/pvscsi-Windows8.flp"
 
-vm_inst_os_key_standard = "VDYBN-27WPP-V4HQT-9VMD4-VMK7H"
+# Windows username (created in autounattend.xml. If you change it here the please also adjust in all autounattend.xml)
+winrm_password = "vagrant"
+
+# Windows password (created in autounattend.xml. If you change it here the please also adjust in all autounattend.xml)
+winrm_username = "vagrant"
