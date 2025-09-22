@@ -33,60 +33,40 @@ variable "network_name" {
   default = ""
 }
 
-variable "build_username" {
+variable "autounattend_file" {
+  type    = string
+  default = ""
+}
+
+variable "os_iso_checksum" {
+  type    = string
+  default = ""
+}
+
+variable "os_iso_url" {
+  type    = string
+  default = ""
+}
+
+variable "vmtools_iso_path" {
+  type    = string
+  default = ""
+}
+
+variable "floppy_pvscsi" {
+  type = string
+  default = ""
+}
+
+variable "winrm_username" {
   type        = string
   description = "The username to login to the guest operating system."
   sensitive   = true
 }
 
-variable "build_password" {
+variable "winrm_password" {
   type        = string
   description = "The password to login to the guest operating system."
   sensitive   = true
 }
 
-variable "vm_inst_os_eval" {
-  type        = bool
-  description = "Build using the operating system evaluation"
-  default     = true
-}
-variable "vm_inst_os_language" {
-  type        = string
-  description = "The installation operating system lanugage."
-  default     = "en-US"
-}
-
-variable "vm_inst_os_keyboard" {
-  type        = string
-  description = "The installation operating system keyboard input."
-  default     = "en-US"
-}
-
-variable "vm_inst_os_image_standard_desktop" {
-  type        = string
-  description = "The installation operating system image input for Microsoft Windows Standard."
-  default     = "Windows Server 2022 SERVERSTANDARD"
-}
-
-variable "vm_inst_os_key_standard" {
-  type        = string
-  description = "The installation operating system key input for Microsoft Windows Standard edition."
-}
-
-variable "vm_guest_os_language" {
-  type        = string
-  description = "The guest operating system lanugage."
-  default     = "en-US"
-}
-
-variable "vm_guest_os_keyboard" {
-  type        = string
-  description = "The guest operating system keyboard input."
-  default     = "en-US"
-}
-
-variable "vm_guest_os_timezone" {
-  type        = string
-  description = "The guest operating system timezone."
-  default     = "UTC+7"
-}
